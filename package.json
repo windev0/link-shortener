@@ -7,6 +7,12 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "dev:client": "npm --prefix client run dev",
+    "dev:server": "npm --prefix server run dev",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
