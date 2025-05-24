@@ -1,75 +1,47 @@
-# 🔗 Link Shortener
+# 🔗 Link Shortener — Fullstack App (Node.js + React + MongoDB + Tailwind CSS)
 
-A simple, fast, and reliable URL shortener built with ❤️ for developers and users who want to share clean, concise links.
-
----
-
-## 🚀 Features
-
-- **Shorten long URLs** in seconds
-- **Custom aliases** for your links
-- **Analytics**: Track clicks and usage
-- **RESTful API** for integration
-- **Secure**: Prevents spam and malicious links
+Un projet complet de raccourcisseur de liens personnel ✂️ — réalisé avec **Node.js** pour le backend, **React + Vite** pour le frontend, **MongoDB** pour la base de données, et **Tailwind CSS** pour un design moderne.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Fonctionnalités
 
-- **Backend:** Node.js, Express
-- **Database:** MongoDB
-- **Frontend:** React (optional)
-- **Deployment:** Docker, Vercel/Heroku
+- ✅ Raccourcir une URL longue vers un lien court unique
+- 📋 Copier le lien court d’un simple clic
+- 🧾 Historique de tous les liens générés (via MongoDB)
+- 🗑️ Supprimer un lien (bientôt)
+- 🔎 Tri et recherche dans l'historique (à venir)
+- 🌐 API REST exposée (POST /shorten, GET /all)
 
 ---
 
-## 📦 Installation
+## 🧱 Stack technique
+
+### 🖥️ Frontend (React + Vite + Tailwind CSS)
+- React + TypeScript
+- Axios pour les appels API
+- Tailwind CSS pour le style
+- Vite pour un dev ultra-rapide
+
+### ⚙️ Backend (Node.js + Express + MongoDB)
+- Express.js
+- Mongoose (ODM MongoDB)
+- Nanoid pour générer des IDs uniques
+- CORS, dotenv, body-parser
+
+---
+
+## 📁 Structure du repo
 
 ```bash
-git clone https://github.com/yourusername/link-shortener.git
-cd link-shortener
-npm install
-npm start
-```
-
----
-
-## 📝 Usage
-
-1. **Shorten a link:**  
-    Paste your long URL and get a short one instantly.
-
-2. **Custom alias:**  
-    Choose your own short code for easy recall.
-
-3. **API:**  
-    ```http
-    POST /api/shorten
-    {
-      "url": "https://example.com"
-    }
-    ```
-
----
-
-## 📊 Analytics
-
-- View total clicks
-- Referrer tracking
-- Geo-location stats
-
----
-
-## 🤝 Contributing
-
-Pull requests are welcome! For major changes, please open an issue first.
-
----
-
-## 📄 License
-
-[MIT](LICENSE)
-
----
-
-> Made with passion by [Your Name](https://github.com/windev0)
+📦 link-shortener/
+├── client/         # Frontend React (Vite)
+│   ├── src/
+│   ├── index.css   # Tailwind config
+│   └── ...
+├── server/         # Backend Node.js + Express
+│   ├── models/
+│   ├── routes/
+│   └── ...
+├── README.md
+└── ...
