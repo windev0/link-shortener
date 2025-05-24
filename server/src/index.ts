@@ -1,12 +1,17 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { nanoid } from "nanoid";
+import Link from "./schemas/link.schema";
+import { connectToMongoDB } from "./db";
 
 // Création de l'application Express
 const app = express();
 const PORT = 5000;
 
-app.get("/", (req, res) => {
+// Connexion à la base de données MongoDB
+connectToMongoDB();
+
+app.get("/", (_req, res) => {
   res.send(
     "<h1>Bienvenue sur le service de raccourcissement d'URL !</h1> <h2>Utilisez POST /shorten pour raccourcir une URL</h2>"
   );
@@ -23,7 +28,7 @@ const urlDatabase: Record<string, string> = {};
  * Renvoie une URL courte
  */
 
-app.post("/shorten", (req: any, res: any) => {
+app.post("/shorten", async (req: express.Request, res: any) => {
   const { originalUrl } = req.body;
 
   // Vérifie que l'utilisateur a bien fourni une URL
@@ -35,39 +40,72 @@ app.post("/shorten", (req: any, res: any) => {
   const shortId = nanoid(6);
 
   // Stocke l'association entre l'ID et l'URL d'origine
-  urlDatabase[shortId] = originalUrl;
+  // urlDatabase[shortId] = originalUrl;
+
+  try {
+    // Crée et sauvegarde un nouveau lien dans la base
+    const newLink = new Link({ shortId, originalUrl });
+    await newLink.save();
+
+    const shortUrl = `http://localhost:${PORT}/${shortId}`;
+    res.json({ shortUrl });
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement du lien :", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
 
   // Renvoie l'URL courte au format http://localhost:5000/abc123
-  const shortUrl = `http://localhost:${PORT}/${shortId}`;
-  res.json({ shortUrl });
+  // const shortUrl = `http://localhost:${PORT}/${shortId}`;
+  // res.json({ shortUrl });
 });
 
 /**
  * Route GET /stats/:shortId
  * Renvoie la liste de toutes les URL courtes
  */
-app.get("/all", (req: any, res: any) => {
-  // Renvoie toutes les URL courtes
-  return res.json(urlDatabase);
+app.get("/all", async (_req: express.Request, res: express.Response) => {
+  try {
+    // Renvoie toutes les URL courtes
+    const allLinks = await Link.find();
+    res.json(allLinks);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des liens :", error);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
 });
 
 /**
  * Route GET /:shortId
  * Redirige toute requête contenant un ID court vers l'URL d’origine
  */
-app.get("/:shortId", (req: any, res: any) => {
+app.get("/shorten/:shortId", async (req: any, res: any) => {
   const { shortId } = req.params;
 
   // Recherche l'URL longue associée à l'identifiant
-  const originalUrl = urlDatabase[shortId];
+  // const originalUrl = urlDatabase[shortId];
 
-  // Si non trouvée, erreur 404
-  if (!originalUrl) {
-    return res.status(404).send("Lien non trouvé");
+  // // Si non trouvée, erreur 404
+  // if (!originalUrl) {
+  //   return res.status(404).send("Lien non trouvé");
+  // }
+
+  // // Redirige vers l'URL longue
+  // res.redirect(originalUrl);
+
+  try {
+    // Recherche dans MongoDB un document correspondant à l'ID
+    const link = await Link.findOne({ shortId });
+
+    if (!link) {
+      return res.status(404).send("Lien non trouvé");
+    }
+
+    // Redirige vers l’URL d’origine
+    res.redirect(link.originalUrl);
+  } catch (error) {
+    console.error("Erreur pendant la redirection :", error);
+    res.status(500).send("Erreur serveur");
   }
-
-  // Redirige vers l'URL longue
-  res.redirect(originalUrl);
 });
 
 // Lance le serveur
