@@ -4,7 +4,7 @@ import express from "express";
 
 import dotenv from "dotenv";
 
-dotenv.config({ path: "../../.env" });
+dotenv.config();
 
 // Création de l'application Express
 const app = express();
