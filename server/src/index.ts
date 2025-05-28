@@ -1,5 +1,5 @@
 import { connectToMongoDB } from "./db.js"; // ✅ Même si le fichier source est "db.ts"
-import { app, PORT, SERVER_URL } from "./configs/express.config";
+import { app, PORT, SERVER_URL } from "./configs/express.config.js";
 
 // apis
 import "./api/link.api";

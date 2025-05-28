@@ -1,7 +1,7 @@
-import { app } from "../configs/express.config";
+import { app } from "../configs/express.config.js";
 import express from "express";
-import User from "../schemas/user.schema";
-import { UserData } from "../utils/types";
+import User from "../schemas/user.schema.js";
+import { UserData } from "../utils/types.js";
 
 app.post("/users", async (req, res): Promise<any> => {
   console.log(req.body);

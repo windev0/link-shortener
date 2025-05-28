@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
-import { app, SERVER_URL } from "../configs/express.config";
 import  express  from "express";
-import Link from "../schemas/link.schema";
+import { app, SERVER_URL } from "../configs/express.config.js";
+import Link from "../schemas/link.schema.js";
 
 // Dictionnaire en mémoire pour stocker les URLs (clé = ID court, valeur = URL longue)
 // const urlDatabase: Record<string, string> = {};
