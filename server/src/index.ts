@@ -1,4 +1,4 @@
-import { connectToMongoDB } from "./db";
+import { connectToMongoDB } from "./db.js"; // ✅ Même si le fichier source est "db.ts"
 import { app, PORT, SERVER_URL } from "./configs/express.config";
 
 // apis
