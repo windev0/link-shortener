@@ -34,7 +34,7 @@ app.post("/users", async (req, res): Promise<any> => {
   }
 
   // Crée un nouvel utilisateur
-  const newUser = createUser({ email, username, password });
+  const newUser = await createUser({ email, username, password });
 
   // Pour l'instant, nous renvoyons simplement les données reçues
   return res.status(201).json({
@@ -116,16 +116,13 @@ app.delete(
   }
 );
 
-function createUser(data: UserData) {
+async function createUser(data: UserData) {
   const newUser = new User({
     username: data.username,
     email: data.email,
     password: data.password, // Assurez-vous de hacher le mot de passe avant de le stocker
   });
 
-  return newUser.save().then((user) => {
-    user.toObject();
-  });
+  const user = await newUser.save();
+  user.toObject();
 }
-
-// export default :

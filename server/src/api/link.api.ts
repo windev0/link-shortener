@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { app, PORT } from "../configs/express.config";
+import { app, PORT, SERVER_URL } from "../configs/express.config";
 import  express  from "express";
 import Link from "../schemas/link.schema";
 
@@ -11,7 +11,7 @@ import Link from "../schemas/link.schema";
  * Renvoie une URL courte
  */
 
-app.post("/shorten", async (req: express.Request, res: any) => {
+app.post("/links/shorten", async (req: express.Request, res: any) => {
   const { originalUrl } = req.body;
 
   // Vérifie que l'utilisateur a bien fourni une URL
@@ -30,7 +30,7 @@ app.post("/shorten", async (req: express.Request, res: any) => {
     const newLink = new Link({ shortId, originalUrl });
     const savedLink = await newLink.save();
 
-    const shortUrl = `http://localhost:${PORT}/${shortId}`;
+    const shortUrl = `${SERVER_URL}/${shortId}`;
     res.json({ shortUrl, ...savedLink.toObject() });
   } catch (error) {
     console.error("Erreur lors de l'enregistrement du lien :", error);
@@ -46,7 +46,7 @@ app.post("/shorten", async (req: express.Request, res: any) => {
  * Route GET /stats/:shortId
  * Renvoie la liste de toutes les URL courtes
  */
-app.get("/all", async (_req: express.Request, res: express.Response) => {
+app.get("/links", async (_req: express.Request, res: express.Response) => {
   try {
     // Renvoie toutes les URL courtes par ordre decroissant de date
 
@@ -65,7 +65,7 @@ app.get("/all", async (_req: express.Request, res: express.Response) => {
  * Route GET /:shortId
  * Redirige toute requête contenant un ID court vers l'URL d’origine
  */
-app.get("shorten/:shortId", async (req: any, res: any) => {
+app.get("links/:shortId", async (req: any, res: any) => {
   const { shortId } = req.params;
 
   // Recherche l'URL longue associée à l'identifiant
