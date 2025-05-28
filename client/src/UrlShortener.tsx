@@ -14,7 +14,9 @@ const URLShortenerForm = () => {
   useEffect(() => {
     const fetchLinks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/all");
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/links`
+        );
         setLinks(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des liens :", error);
@@ -31,9 +33,12 @@ const URLShortenerForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/shorten", {
-        originalUrl,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/links/shorten`,
+        {
+          originalUrl,
+        }
+      );
 
       if (response.status !== 200) {
         setError("Erreur lors de la création du lien");
@@ -155,141 +160,3 @@ const URLShortenerForm = () => {
 };
 
 export default URLShortenerForm;
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import type { Link } from "./models/link.model";
-// import type { LinkResponse } from "./types/link-response";
-
-// const URLShortenerForm = () => {
-//   const [originalUrl, setOriginalUrl] = useState("");
-//   const [shortUrl, setShortUrl] = useState("");
-//   //   const [history, setHistory] = useState<Link[]>([]);
-//   const [refetch, setRefech] = useState<boolean>(true); // 🗂️ Pour forcer la récupération de l'historique
-//   const [links, setLinks] = useState<Link[]>([]); // 🗂️ Historique des liens
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     // 🗂️ Récupération de l'historique des liens
-//     const fetchLinks = async () => {
-//       try {
-//         const response = await axios.get("http://localhost:5000/all");
-//         setLinks(response.data);
-//       } catch (error) {
-//         console.error("Erreur lors de la récupération des liens :", error);
-//       }
-//     };
-
-//     if (refetch) {
-//       fetchLinks();
-//     }
-//   }, [refetch]);
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     try {
-//       const response = await axios.post("http://localhost:5000/shorten", {
-//         originalUrl,
-//       });
-
-//       if (response.status !== 200) {
-//         setError("Erreur lors de la création du lien");
-//         return;
-//       }
-//       const data: LinkResponse = response.data;
-//       setShortUrl(data.shortUrl);
-
-//       // 🧠 Ajoute ce lien à l'historique local
-//       //   setHistory((prev) => [...prev, data]);
-//       setRefech((prev) => !prev); // 🗂️ Force la récupération de l'historique
-
-//       // Réinitialise le champ texte
-//       setOriginalUrl("");
-//     } catch (error) {
-//       console.error("Erreur lors du raccourcissement :", error);
-//     }
-//   };
-
-//   return (
-//     <div style={{ maxWidth: 600, margin: "0 auto", textAlign: "center" }}>
-//       <h2>Raccourcisseur de lien 🔗</h2>
-
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           placeholder="Entrez une URL longue..."
-//           value={originalUrl}
-//           onChange={(e) => setOriginalUrl(e.target.value)}
-//           style={{ width: "80%", padding: "8px", height: 35 }}
-//         />
-//         <div style={{ marginTop: 10 }}>
-//           <button type="submit" style={{ padding: "8px 16px", marginLeft: 10 }}>
-//             Raccourcir
-//           </button>
-//         </div>
-//       </form>
-
-//       {shortUrl && (
-//         <div style={{ marginTop: 20 }}>
-//           <p>Voici ton lien raccourci :</p>
-//           <a
-//             href={links.find((item) => item.shortUrl == shortUrl)?.originalUrl}
-//             target="_blank"
-//             rel="noreferrer"
-//           >
-//             {shortUrl}
-//           </a>
-//         </div>
-//       )}
-
-//       {/* 🗂️ Affichage de la liste d'historique */}
-//       {links.length > 0 && (
-//         <div style={{ marginTop: 40, textAlign: "left" }}>
-//           <h3>📜 Historique :</h3>
-//           <ul>
-//             {links.map((link, index) => (
-//               <>
-//                 <li key={index}>
-//                   <strong>Original :</strong>{" "}
-//                   <a href={link.originalUrl} target="_blank" rel="noreferrer">
-//                     {link.originalUrl}
-//                   </a>
-//                   <br />
-//                   <strong>Court :</strong>{" "}
-//                   <a href={link.shortUrl} target="_blank" rel="noreferrer">
-//                     {link.shortUrl}
-//                   </a>
-//                 </li>
-//                 <br />
-//                 <strong>Créé le: </strong>
-//                 <span>
-//                   {new Date(link.createdAt).toLocaleDateString("fr-FR", {
-//                     year: "numeric",
-//                     month: "2-digit",
-//                     day: "2-digit",
-//                   })}
-//                 </span>{" "}
-//                 à {""}
-//                 <span>
-//                   {new Date(link.createdAt).toLocaleTimeString("fr-FR", {
-//                     hour: "2-digit",
-//                     minute: "2-digit",
-//                   })}
-//                 </span>
-//               </>
-//             ))}
-//           </ul>
-//         </div>
-//       )}
-
-//       {true && (
-//         <div style={{ color: "red", marginTop: 20 }}>
-//           <p>{error}</p>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default URLShortenerForm;
