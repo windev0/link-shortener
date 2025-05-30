@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import type { Link } from "./models/link.model";
-import type { LinkResponse } from "./types/link-response";
+import type { Link } from "../models/link.model";
+import type { LinkResponse } from "../types/link-response";
 
 const URLShortenerForm = () => {
   const [originalUrl, setOriginalUrl] = useState("");
@@ -9,6 +9,7 @@ const URLShortenerForm = () => {
   const [refetch, setRefech] = useState(true);
   const [links, setLinks] = useState<Link[]>([]);
   const [error, setError] = useState("");
+
 
   // 🧠 Récupération des liens à chaque changement de "refetch"
   useEffect(() => {

@@ -4,7 +4,6 @@ import User from "../schemas/user.schema.js";
 import { UserData } from "../utils/types.js";
 
 app.post("/users", async (req, res): Promise<any> => {
-  console.log(req.body);
   if (!req.body) {
     return res.status(400).json({ error: "Aucune donnée reçue" });
   }
@@ -116,7 +115,7 @@ app.delete(
   }
 );
 
-async function createUser(data: UserData) {
+export async function createUser(data: UserData) {
   const newUser = new User({
     username: data.username,
     email: data.email,

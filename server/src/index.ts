@@ -4,6 +4,7 @@ import { app, PORT, SERVER_URL } from "./configs/express.config.js";
 // apis
 import "./api/link.api.js";
 import "./api/user.api.js";
+import "./api/auth.api.js";
 
 // Connexion à la base de données MongoDB
 connectToMongoDB();
