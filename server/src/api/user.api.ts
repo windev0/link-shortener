@@ -27,9 +27,14 @@ app.post("/users", async (req, res): Promise<any> => {
     return res.status(400).json({ error: "email invalide" });
   }
 
-  const existedUser = await User.findOne({ equals: { email } });
+  let existedUser = await User.findOne({ $equals: { email } });
+  if (!existedUser) {
+    existedUser = await User.findOne({ $equals: { username } });
+  }
+
+  console.log(existedUser);
   if (existedUser) {
-    return res.status(400).json({ error: "email déjà utilisé" });
+    return res.status(400).json({ error: "Email ou username existe déjà" });
   }
 
   // Crée un nouvel utilisateur

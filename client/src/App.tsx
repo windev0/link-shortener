@@ -5,6 +5,7 @@ import URLShortenerForm from "./pages/UrlShortener.page";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { isLoggedIn } from "./utils/functions";
 import ProtectedRoute, { NaviagateToElement } from "./configs/protectedRoutes";
+import RegisterPage from "./pages/Register.page";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
 
         {/* Public routes */}
         <Route path={RoutesEnum.LOGIN} element={<LoginPage />} />
-        <Route path={RoutesEnum.REGISTER} element={<h1>Register</h1>} />
+        <Route path={RoutesEnum.REGISTER} element={<RegisterPage />} />
 
         {/* Protected routes */}
         <Route

@@ -29,11 +29,13 @@ app.post(
       return res.status(400).json({ error: "email invalide" });
     }
 
-    const existedUser = await User.findOne({ equals: { email } });
-    if (existedUser) {
-      return res.status(400).json({ error: "email déjà utilisé" });
-    }
+    const existedUser = await User.findOne({
+      $or: [{ email }, { username }],
+    });
 
+    if (existedUser) {
+      return res.status(400).json({ error: "Email ou username existe déjà" });
+    }
     // Crée un nouvel utilisateur
     const newUser = await createUser({ email, username, password });
 
