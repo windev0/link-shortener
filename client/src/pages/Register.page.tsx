@@ -47,180 +47,207 @@ const RegisterPage: React.FC = () => {
       return res.json();
     });
 
-    console.log("object", data);
     if (data) {
       navigate(RoutesEnum.LOGIN);
-      alert("Registered successfully!");
     }
   };
 
   return (
-    <div
-      style={{
-        maxWidth: 400,
-        margin: "3rem auto",
-        padding: "2rem",
-        borderRadius: 12,
-        boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
-        background: "#fff",
-        fontFamily: "Segoe UI, Arial, sans-serif",
-      }}
-    >
-      <h2 style={{ textAlign: "center", marginBottom: 24, color: "#333" }}>
-        Register
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 18 }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: 6,
-              color: "#444",
-              fontWeight: 500,
-            }}
-          >
-            Username
-            <input
-              type="text"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              required
+    <div className="flex items-center justify-center h-screen w-screen bg-gray-100">
+      <div
+        style={{
+          maxWidth: 400,
+          margin: "3rem auto",
+          padding: "2rem",
+          borderRadius: 12,
+          boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+          backgroundColor: "#fff",
+          fontFamily: "Segoe UI, Arial, sans-serif",
+        }}
+      >
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: 24,
+            color: "#333",
+            fontSize: 24,
+          }}
+        >
+          Register
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: 18 }}>
+            <label
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                border: "1px solid #ccc",
-                borderRadius: 6,
-                marginTop: 4,
-                fontSize: 16,
-                outline: "none",
-                boxSizing: "border-box",
+                display: "block",
+                marginBottom: 6,
+                color: "#444",
+                fontWeight: 500,
               }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: 18 }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: 6,
-              color: "#444",
-              fontWeight: 500,
-            }}
-          >
-            Email
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
+            >
+              Username
+              <input
+                type="text"
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 6,
+                  marginTop: 4,
+                  fontSize: 16,
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </label>
+          </div>
+          <div style={{ marginBottom: 18 }}>
+            <label
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                border: "1px solid #ccc",
-                borderRadius: 6,
-                marginTop: 4,
-                fontSize: 16,
-                outline: "none",
-                boxSizing: "border-box",
+                display: "block",
+                marginBottom: 6,
+                color: "#444",
+                fontWeight: 500,
               }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: 18 }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: 6,
-              color: "#444",
-              fontWeight: 500,
-            }}
-          >
-            Password
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
+            >
+              Email
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 6,
+                  marginTop: 4,
+                  fontSize: 16,
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </label>
+          </div>
+          <div style={{ marginBottom: 18 }}>
+            <label
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                border: "1px solid #ccc",
-                borderRadius: 6,
-                marginTop: 4,
-                fontSize: 16,
-                outline: "none",
-                boxSizing: "border-box",
+                display: "block",
+                marginBottom: 6,
+                color: "#444",
+                fontWeight: 500,
               }}
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: 18 }}>
-          <label
-            style={{
-              display: "block",
-              marginBottom: 6,
-              color: "#444",
-              fontWeight: 500,
-            }}
-          >
-            Confirm Password
-            <input
-              type="password"
-              name="confirmPassword"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              required
+            >
+              Password
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 6,
+                  marginTop: 4,
+                  fontSize: 16,
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </label>
+          </div>
+          <div style={{ marginBottom: 18 }}>
+            <label
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                border: "1px solid #ccc",
-                borderRadius: 6,
-                marginTop: 4,
-                fontSize: 16,
-                outline: "none",
-                boxSizing: "border-box",
+                display: "block",
+                marginBottom: 6,
+                color: "#444",
+                fontWeight: 500,
               }}
-            />
-          </label>
-        </div>
-        {error && (
-          <div
+            >
+              Confirm Password
+              <input
+                type="password"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "10px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 6,
+                  marginTop: 4,
+                  fontSize: 16,
+                  outline: "none",
+                  boxSizing: "border-box",
+                }}
+              />
+            </label>
+          </div>
+          {error && (
+            <div
+              style={{
+                color: "#d32f2f",
+                background: "#fdecea",
+                border: "1px solid #f5c6cb",
+                borderRadius: 6,
+                padding: "10px 12px",
+                marginBottom: 18,
+                fontSize: 15,
+              }}
+            >
+              {error}
+            </div>
+          )}
+          <button
+            type="submit"
             style={{
-              color: "#d32f2f",
-              background: "#fdecea",
-              border: "1px solid #f5c6cb",
+              width: "100%",
+              padding: "12px 0",
+              background: "#1976d2",
+              color: "#fff",
+              border: "none",
               borderRadius: 6,
-              padding: "10px 12px",
-              marginBottom: 18,
+              fontSize: 17,
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "background 0.2s",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.background = "#1565c0")}
+            onMouseOut={(e) => (e.currentTarget.style.background = "#1976d2")}
+          >
+            Register
+          </button>
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: 16,
+              color: "#666",
               fontSize: 15,
             }}
           >
-            {error}
-          </div>
-        )}
-        <button
-          type="submit"
-          style={{
-            width: "100%",
-            padding: "12px 0",
-            background: "#1976d2",
-            color: "#fff",
-            border: "none",
-            borderRadius: 6,
-            fontSize: 17,
-            fontWeight: 600,
-            cursor: "pointer",
-            transition: "background 0.2s",
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = "#1565c0")}
-          onMouseOut={(e) => (e.currentTarget.style.background = "#1976d2")}
-        >
-          Register
-        </button>
-      </form>
+            Already have an account?{" "}
+            <a
+              href={RoutesEnum.LOGIN}
+              style={{
+                color: "#1976d2",
+                textDecoration: "none",
+                fontWeight: 500,
+              }}
+            >
+              Login here
+            </a>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
