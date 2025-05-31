@@ -8,4 +8,16 @@ export interface Link {
 
 export interface LinkData {
   originalUrl: string; // URL d'origine
+  userID?: string;
+}
+
+export interface User {
+  _id: string;
+  username: string;
+  password: string;
+  email: string;
+  isLoggedIn: boolean;
+  lastLogin: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

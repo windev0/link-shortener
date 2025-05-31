@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import type { Link } from "../models/link.model";
+import type { Link, User } from "../models/link.model";
 import type { LinkResponse } from "../types/link-response";
-import OffLineUrlShortener from "../assets/components/OffLineUrlShortenerComponent";
 
-interface Props {
-  isLoggedIn?: boolean;
-}
-const URLShortenerForm = ({ isLoggedIn }: Props) => {
+const URLShortenerForm = () => {
+  const user: User = JSON.parse(window.localStorage.getItem("user") ?? "");
+
   const [originalUrl, setOriginalUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [refetch, setRefech] = useState(true);
   const [links, setLinks] = useState<Link[]>([]);
   const [error, setError] = useState("");
+  const [userId, _] = useState(user?._id);
 
   // 🧠 Récupération des liens à chaque changement de "refetch"
   useEffect(() => {
     const fetchLinks = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/links`
+          `${import.meta.env.VITE_API_BASE_URL}/links?userID=${userId}`
         );
         setLinks(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des liens :", error);
       }
     };
-
     if (refetch) {
       fetchLinks();
     }
-  }, [refetch]);
+  }, [shortUrl]);
 
   // 🎯 Soumission du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
@@ -41,6 +39,7 @@ const URLShortenerForm = ({ isLoggedIn }: Props) => {
         `${import.meta.env.VITE_API_BASE_URL}/links/shorten`,
         {
           originalUrl,
+          userID: user?._id,
         }
       );
 
@@ -51,30 +50,15 @@ const URLShortenerForm = ({ isLoggedIn }: Props) => {
 
       const data: LinkResponse = response.data;
       setShortUrl(data.shortUrl);
-      setRefech((prev) => !prev); // 🔁 Rafraîchit l'historique
+      setRefech(true); // 🔁 Rafraîchit l'historique
       setOriginalUrl(""); // 🔄 Vide le champ
     } catch (error) {
       console.error("Erreur lors du raccourcissement :", error);
     }
   };
 
-  if (!isLoggedIn) {
-    return <OffLineUrlShortener />;
-  }
   return (
     <>
-      {/* <nav
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          padding: "10px",
-          backgroundColor: "#282c34",
-          color: "white",
-          height: "75px",
-        }}
-      >
-    
-      </nav> */}
       <div className="max-w-2xl mx-auto p-6 text-center">
         <h2 className="text-2xl font-bold mb-6">Raccourcisseur de lien 🔗</h2>
 
@@ -84,15 +68,15 @@ const URLShortenerForm = ({ isLoggedIn }: Props) => {
         >
           <input
             type="text"
+            required
             placeholder="Entrez une URL longue..."
             value={originalUrl}
             onChange={(e) => setOriginalUrl(e.target.value)}
             className="w-full md:w-4/5 px-4 py-2 border border-gray-300 rounded-lg"
           />
           <button
-            disabled={!originalUrl}
             type="submit"
-            className="bg-black  px-6 py-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue  px-6 py-2 rounded hover:bg-blue-700 transition"
           >
             Raccourcir
           </button>

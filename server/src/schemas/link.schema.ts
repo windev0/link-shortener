@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 // Définition du schéma des documents (équivalent d'une "table")
 const linkSchema = new mongoose.Schema({
+  userId: { type: String, require: false },
   shortUrl: { type: String, required: false },
   shortId: { type: String, required: true, unique: true },
   originalUrl: { type: String, required: true },

@@ -49,15 +49,15 @@ const OffLineUrlShortener = () => {
         >
           <input
             type="text"
+            required
             placeholder="Entrez une URL longue..."
             value={originalUrl}
             onChange={(e) => setOriginalUrl(e.target.value)}
             className="w-full md:w-4/5 px-4 py-2 border border-gray-300 rounded-lg"
           />
           <button
-            disabled={!originalUrl}
             type="submit"
-            className="bg-black  px-6 py-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue  px-6 py-2 rounded hover:bg-blue-700 transition"
           >
             Raccourcir
           </button>

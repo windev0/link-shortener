@@ -1,8 +1,12 @@
+import OffLineUrlShortener from "../assets/components/OffLineUrlShortenerComponent";
 import "../assets/css/nav.css";
 import { RoutesEnum } from "../configs/router";
+import { isLoggedIn } from "../utils/functions";
 import URLShortenerForm from "./UrlShortener.page";
 
 const HomePage = () => {
+  const saveHistoric = isLoggedIn();
+
   return (
     <>
       <nav
@@ -17,7 +21,7 @@ const HomePage = () => {
         }}
       >
         <div style={{ color: "white", fontSize: "1.2rem", fontWeight: "bold" }}>
-          <a href="" style={{ color: "white" }}>
+          <a href="/" style={{ color: "white" }}>
             LINK - SHORTNER
           </a>
         </div>
@@ -39,34 +43,38 @@ const HomePage = () => {
           </a>
           <a href="#">
             <li className="nav-link">A Propos</li>
-          </a>
+          </a>{" "}
+          {saveHistoric && (
+            <button
+              style={{
+                //   marginTop: "6px",
+                padding: "5px 10px",
+
+                color: "black",
+                backgroundColor: "white",
+                border: "none",
+              }}
+              onClick={() => {
+                localStorage.clear();
+                window.location.reload();
+                // window.location.href = RoutesEnum.LOGIN;
+              }}
+            >
+              Déconnexion
+            </button>
+          )}
         </ul>
 
         {/* <div>
           <a href="" style={{ color: "white" }}>
             Hello
           </a>
-        </div>
-        <button
-          style={{
-            marginTop: "6px",
-            color: "black",
-            backgroundColor: "white",
-            border: "none",
-          }}
-          onClick={() => {
-            localStorage.clear();
-            window.location.reload();
-            // window.location.href = RoutesEnum.LOGIN;
-          }}
-        >
-          Déconnexion
-        </button> */}
+        </div>*/}
       </nav>
       <div style={{ marginTop: "20px", padding: "10px 20px" }}>
         <h1>Créer en quelques secondes un raccourci de vos liens</h1>
       </div>
-      <URLShortenerForm />
+      {!saveHistoric ? <OffLineUrlShortener /> : <URLShortenerForm />}
     </>
   );
 };

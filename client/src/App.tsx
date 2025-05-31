@@ -1,6 +1,5 @@
 import "./App.css";
 import { RoutesEnum } from "./configs/router";
-import URLShortenerForm from "./pages/UrlShortener.page";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { isLoggedIn } from "./utils/functions";
 import ProtectedRoute from "./configs/protectedRoutes";
@@ -29,14 +28,14 @@ function App() {
         <Route path={RoutesEnum.REGISTER} element={<RegisterPage />} />
 
         {/* Protected routes */}
-        <Route
+        {/* <Route
           path={RoutesEnum.URL_SHORTENER}
           element={
             <ProtectedRoute>
               <URLShortenerForm />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path={RoutesEnum.DASHBOARD}
           element={

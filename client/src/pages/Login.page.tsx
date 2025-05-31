@@ -51,111 +51,122 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen bg-gray-100">
+    <>
       <div
-        style={{
-          minWidth: 400,
-          padding: 24,
-          border: "1px solid #ddd",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-          backgroundColor: "#fff",
-          borderRadius: 8,
-        }}
+        style={{ fontSize: "1.2rem", fontWeight: "bold" }}
+        className="bg-gray-100 p-3"
       >
-        <h2
+        <a href="/" style={{ fontSize: "25px" }}>
+          Retour
+        </a>
+      </div>
+      <div className="flex items-center justify-center h-screen w-screen bg-gray-100">
+        <div
           style={{
-            textAlign: "center",
-            marginBottom: 24,
-            color: "black",
-            fontSize: 22,
+            minWidth: 400,
+            padding: 24,
+            border: "1px solid #ddd",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+            backgroundColor: "#fff",
+            borderRadius: 8,
           }}
         >
-          Please enter your credentials
-        </h2>
-
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 16 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: 4,
-                color: "#000",
-                fontSize: 16,
-              }}
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              value={form.username}
-              onChange={handleChange}
-              style={{
-                width: "100%",
-                padding: 8,
-                marginTop: 4,
-                borderRadius: 4,
-                border: "1px solid #ccc",
-              }}
-              autoComplete="username"
-              required
-            />
-          </div>
-
-          <div style={{ marginBottom: 16 }}>
-            <label
-              style={{
-                display: "block",
-                marginBottom: 4,
-                color: "#000",
-                fontSize: 16,
-              }}
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              style={{
-                width: "100%",
-                padding: 8,
-                marginTop: 4,
-                borderRadius: 4,
-                border: "1px solid #ccc",
-              }}
-              autoComplete="current-password"
-              required
-            />
-          </div>
-
-          {error && (
-            <div style={{ color: "red", marginBottom: 12 }}>{error}</div>
-          )}
-
-          <button
-            type="submit"
-            disabled={isLoading}
+          <h2
             style={{
-              width: "100%",
-              padding: 10,
-              color: "#fff",
-              backgroundColor: "#007bff",
-              border: "none",
-              borderRadius: 4,
-              cursor: "pointer",
+              textAlign: "center",
+              marginBottom: 24,
+              color: "black",
+              fontSize: 22,
             }}
           >
-            Sign In
-          </button>
-        </form>
+            Please enter your credentials
+          </h2>
 
-        <div style={{ marginTop: 16, textAlign: "center" }}>
-          Don't have an account? <Link to={RoutesEnum.REGISTER}>Register</Link>
+          <form onSubmit={handleSubmit}>
+            <div style={{ marginBottom: 16 }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: 4,
+                  color: "#000",
+                  fontSize: 16,
+                }}
+              >
+                Username
+              </label>
+              <input
+                type="text"
+                name="username"
+                value={form.username}
+                onChange={handleChange}
+                style={{
+                  width: "100%",
+                  padding: 8,
+                  marginTop: 4,
+                  borderRadius: 4,
+                  border: "1px solid #ccc",
+                }}
+                autoComplete="username"
+                required
+              />
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: 4,
+                  color: "#000",
+                  fontSize: 16,
+                }}
+              >
+                Password
+              </label>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                style={{
+                  width: "100%",
+                  padding: 8,
+                  marginTop: 4,
+                  borderRadius: 4,
+                  border: "1px solid #ccc",
+                }}
+                autoComplete="current-password"
+                required
+              />
+            </div>
+
+            {error && (
+              <div style={{ color: "red", marginBottom: 12 }}>{error}</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              style={{
+                width: "100%",
+                padding: 10,
+                color: "#fff",
+                backgroundColor: "#007bff",
+                border: "none",
+                borderRadius: 4,
+                cursor: "pointer",
+              }}
+            >
+              Sign In
+            </button>
+          </form>
+
+          <div style={{ marginTop: 16, textAlign: "center" }}>
+            Don't have an account?{" "}
+            <Link to={RoutesEnum.REGISTER}>Register</Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
