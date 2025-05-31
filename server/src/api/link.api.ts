@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import  express  from "express";
+import express from "express";
 import { app, SERVER_URL } from "../configs/express.config.js";
 import Link from "../schemas/link.schema.js";
 
@@ -13,6 +13,9 @@ import Link from "../schemas/link.schema.js";
 
 app.post("/links/shorten", async (req: express.Request, res: any) => {
   const { originalUrl } = req.body;
+  const { offline } = req.query;
+
+  console.log("offline", offline);
 
   // Vérifie que l'utilisateur a bien fourni une URL
   if (!originalUrl) {
@@ -31,6 +34,12 @@ app.post("/links/shorten", async (req: express.Request, res: any) => {
     const savedLink = await newLink.save();
 
     const shortUrl = `${SERVER_URL}/links/${shortId}`;
+    if (offline) {
+      const link = { shortUrl, ...newLink.toObject() };
+      res.json(link);
+      console.log("returned", link);
+      return;
+    }
     res.json({ shortUrl, ...savedLink.toObject() });
   } catch (error) {
     console.error("Erreur lors de l'enregistrement du lien :", error);
