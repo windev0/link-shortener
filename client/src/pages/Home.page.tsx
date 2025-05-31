@@ -7,6 +7,30 @@ import URLShortenerForm from "./UrlShortener.page";
 const HomePage = () => {
   const saveHistoric = isLoggedIn();
 
+  const handleLogout = async () => {
+    try {
+      const { _id: userId } = JSON.parse(
+        window.localStorage.getItem("user") ?? ""
+      );
+      console.log(userId);
+      const response = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/auth/logout?userId=${userId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then((res) => res.json());
+
+      console.log("logout", response);
+      if (response) localStorage.clear();
+      window.location.reload();
+    } catch (error) {
+      console.log("Logout", error);
+    }
+  };
+
   return (
     <>
       <nav
@@ -54,11 +78,7 @@ const HomePage = () => {
                 backgroundColor: "white",
                 border: "none",
               }}
-              onClick={() => {
-                localStorage.clear();
-                window.location.reload();
-                // window.location.href = RoutesEnum.LOGIN;
-              }}
+              onClick={handleLogout}
             >
               Déconnexion
             </button>

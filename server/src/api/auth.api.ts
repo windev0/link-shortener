@@ -78,3 +78,19 @@ app.post(
       .json({ message: "Login successful", user: updatedUser?.toObject() });
   }
 );
+
+app.post(
+  "/auth/logout",
+  async (req: express.Request, res: express.Response): Promise<any> => {
+    const { userId } = req?.query;
+
+    const user = await User.findOne({ _id: userId });
+    console.log("user db", user);
+    if (user) {
+      await user.updateOne({ isLoggedIn: false, });
+      res.json(true);
+      return;
+    }
+    res.json(false);
+  }
+);
