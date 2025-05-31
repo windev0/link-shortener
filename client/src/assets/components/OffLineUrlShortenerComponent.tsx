@@ -28,7 +28,7 @@ const OffLineUrlShortener = () => {
       const data: Link = response.data;
       if (data) {
         setLinks((prev) => {
-          return [...prev, data];
+          return [data, ...prev];
         });
         setShortUrl(data.shortUrl);
         setOriginalUrl(""); // 🔄 Vide le champ

@@ -35,8 +35,6 @@ app.post("/links/shorten", async (req: express.Request, res: any) => {
   try {
     // Crée et sauvegarde un nouveau lien dans la base
     const newLink = new Link({ shortId, originalUrl, userId });
-    const savedLink = await newLink.save();
-
     const shortUrl = `${SERVER_URL}/links/${shortId}`;
 
     if (offline) {
@@ -45,6 +43,7 @@ app.post("/links/shorten", async (req: express.Request, res: any) => {
       return;
     }
 
+    const savedLink = await newLink.save();
     res.json({ shortUrl, ...savedLink.toObject() });
   } catch (error) {
     console.error("Erreur lors de l'enregistrement du lien :", error);
@@ -69,7 +68,7 @@ app.get("/links", async (req: express.Request, res: express.Response) => {
     const allLinks = await Link.find({ userId }).sort({
       createdAt: -1,
     });
-    
+
     allLinks.forEach((link) => {
       link.shortUrl = `${SERVER_URL}/links/${link.shortId}`;
     });
