@@ -85,7 +85,6 @@ app.post(
     const { userId } = req?.query;
 
     const user = await User.findOne({ _id: userId });
-    console.log("user db", user);
     if (user) {
       await user.updateOne({ isLoggedIn: false, });
       res.json(true);

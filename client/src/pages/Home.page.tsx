@@ -23,7 +23,6 @@ const HomePage = () => {
         }
       ).then((res) => res.json());
 
-      console.log("logout", response);
       if (response) localStorage.clear();
       window.location.reload();
     } catch (error) {
