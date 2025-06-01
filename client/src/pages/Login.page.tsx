@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../configs/router";
+import axios from "axios";
 
 const LoginPage: React.FC = () => {
   const [form, setForm] = useState({ username: "", password: "" });
@@ -42,6 +43,8 @@ const LoginPage: React.FC = () => {
     if (data) {
       window.localStorage.setItem("user", JSON.stringify(data?.user));
       window.localStorage.setItem("isLoggedIn", "true");
+      axios.defaults.headers.common['Authorization'] = `Bearer ${data?.user?.token}`;
+
 
       setIsLoading(false);
 

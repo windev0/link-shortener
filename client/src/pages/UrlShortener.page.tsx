@@ -4,22 +4,29 @@ import type { Link, User } from "../models/link.model";
 import type { LinkResponse } from "../types/link-response";
 
 const URLShortenerForm = () => {
-  const user: User = JSON.parse(window.localStorage.getItem("user") ?? "");
+  const _user: User = JSON.parse(window.localStorage.getItem("user") ?? "");
 
   const [originalUrl, setOriginalUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [refetch, setRefech] = useState(true);
   const [links, setLinks] = useState<Link[]>([]);
   const [error, setError] = useState("");
-  const [userId, _] = useState(user?._id);
+  const [user, _] = useState(_user);
 
   // 🧠 Récupération des liens à chaque changement de "refetch"
   useEffect(() => {
     const fetchLinks = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/links?userID=${userId}`
+          `${import.meta.env.VITE_API_BASE_URL}/links`,
+          {
+            params: { userID: user?._id },
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
         );
+
         setLinks(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des liens :", error);
@@ -40,7 +47,8 @@ const URLShortenerForm = () => {
         {
           originalUrl,
           userID: user?._id,
-        }
+        },
+        { headers: { Authorization: `Bearer ${user?.token}` } }
       );
 
       if (response.status !== 200) {

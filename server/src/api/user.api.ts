@@ -2,8 +2,10 @@ import { app } from "../configs/express.config.js";
 import express from "express";
 import User from "../schemas/user.schema.js";
 import { UserData } from "../utils/types.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
-app.post("/users", async (req, res): Promise<any> => {
+// create users
+app.post("/users", authMiddleware, async (req, res): Promise<any> => {
   if (!req.body) {
     return res.status(400).json({ error: "Aucune donnée reçue" });
   }
@@ -47,7 +49,8 @@ app.post("/users", async (req, res): Promise<any> => {
   });
 });
 
-app.get("/users", async (_req, res: express.Response) => {
+// Récupère tous les utilisateurs
+app.get("/users", authMiddleware, async (_req, res: express.Response) => {
   try {
     // Récupère tous les utilisateurs
     const users = await User.find().sort({ createdAt: -1 });
@@ -58,6 +61,7 @@ app.get("/users", async (_req, res: express.Response) => {
   }
 });
 
+// get user by id
 app.get(
   "/users/:id",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -77,6 +81,7 @@ app.get(
   }
 );
 
+// Met à jour un utilisateur par son ID
 app.put(
   "/users/:id",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -101,6 +106,7 @@ app.put(
   }
 );
 
+// Supprime un utilisateur par son ID
 app.delete(
   "/users/:id",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -120,6 +126,7 @@ app.delete(
   }
 );
 
+// Fonction pour créer un nouvel utilisateur
 export async function createUser(data: UserData) {
   const newUser = new User({
     username: data.username,

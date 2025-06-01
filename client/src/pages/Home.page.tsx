@@ -9,7 +9,7 @@ const HomePage = () => {
 
   const handleLogout = async () => {
     try {
-      const { _id: userId } = JSON.parse(
+      const { _id: userId , token} = JSON.parse(
         window.localStorage.getItem("user") ?? ""
       );
       console.log(userId);
@@ -19,6 +19,7 @@ const HomePage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       ).then((res) => res.json());

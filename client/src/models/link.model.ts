@@ -16,6 +16,7 @@ export interface User {
   username: string;
   password: string;
   email: string;
+  token?: string; // Optionnel, utilisé pour l'authentification
   isLoggedIn: boolean;
   lastLogin: Date;
   createdAt: Date;

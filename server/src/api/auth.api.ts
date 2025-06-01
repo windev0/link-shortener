@@ -1,9 +1,14 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { app } from "../configs/express.config";
-import User from "../schemas/user.schema";
-import { createUser } from "./user.api";
+import jwt from 'jsonwebtoken';
 
+import { app } from "../configs/express.config.js";
+import User from "../schemas/user.schema.js";
+import { createUser } from "./user.api.js";
+
+
+
+// register route
 app.post(
   "/auth/register",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -53,6 +58,7 @@ app.post(
   }
 );
 
+// login route
 app.post(
   "/auth/login",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -80,13 +86,24 @@ app.post(
       isLoggedIn: true,
       lastLogin: new Date(),
     });
-    const updatedUser = await User.findById(user._id);
-    return res
-      .status(200)
-      .json({ message: "Login successful", user: updatedUser?.toObject() });
+    const updatedUser = await User.findById(user._id)?.then((u) =>
+      u?.toObject()
+    );
+
+    if (updatedUser) {
+      const token = generateAuthToken(
+        updatedUser._id.toString(),
+        updatedUser.username
+      );
+      return res.status(200).json({
+        message: "Login successful",
+        user: { ...updatedUser, token },
+      });
+    }
   }
 );
 
+// logout route
 app.post(
   "/auth/logout",
   async (req: express.Request, res: express.Response): Promise<any> => {
@@ -101,3 +118,12 @@ app.post(
     res.json(false);
   }
 );
+
+function generateAuthToken(_id: string, username: string) {
+  const token = jwt.sign(
+    { _id, username },
+    process.env.JWT_SECRET || "shortner-secret-key",
+    { expiresIn: "1h" }
+  );
+  return token;
+}
