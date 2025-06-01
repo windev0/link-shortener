@@ -92,7 +92,7 @@ app.get(
  * Route GET /:shortId
  * Redirige toute requête contenant un ID court vers l'URL d’origine
  */
-app.get("/links/:shortId", authMiddleware, async (req: any, res: any) => {
+app.get("/links/:shortId", async (req: any, res: any) => {
   const { shortId } = req.params;
 
   // Recherche l'URL longue associée à l'identifiant
