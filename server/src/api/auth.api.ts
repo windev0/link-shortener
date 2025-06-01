@@ -1,4 +1,5 @@
 import express from "express";
+import bcrypt from "bcrypt";
 import { app } from "../configs/express.config";
 import User from "../schemas/user.schema";
 import { createUser } from "./user.api";
@@ -37,7 +38,12 @@ app.post(
       return res.status(400).json({ error: "Email ou username existe déjà" });
     }
     // Crée un nouvel utilisateur
-    const newUser = await createUser({ email, username, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await createUser({
+      email,
+      username,
+      password: hashedPassword,
+    });
 
     // Pour l'instant, nous renvoyons simplement les données reçues
     return res.status(201).json({
@@ -65,7 +71,9 @@ app.post(
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    if (user.password !== password) {
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
     }
     await user.updateOne({
@@ -86,7 +94,7 @@ app.post(
 
     const user = await User.findOne({ _id: userId });
     if (user) {
-      await user.updateOne({ isLoggedIn: false, });
+      await user.updateOne({ isLoggedIn: false });
       res.json(true);
       return;
     }
