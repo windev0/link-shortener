@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Link } from "../../models/link.model";
+import type { Link } from "../models/link.model";
 import axios from "axios";
 
 const OffLineUrlShortener = () => {
@@ -14,10 +14,11 @@ const OffLineUrlShortener = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/links/shorten?offline=true`,
+        `${import.meta.env.VITE_API_BASE_URL}/links/shorten`,
         {
           originalUrl,
-        }
+        },
+        { params: { offline: true } }
       );
 
       if (response.status !== 200) {

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { off } from "process";
 
 // Extend Express Request interface to include 'user'
 declare global {
@@ -16,8 +17,15 @@ export const authMiddleware = (
   next: NextFunction
 ): any => {
   // Check if the request has an authorization header
-//   console.log(req);
+  //   console.log(req);
   const authHeader = req.headers.authorization;
+  const { offline } = req.query;
+
+  if (offline === "true") {
+    // If offline mode is enabled, skip authentication
+    return next();
+  }
+
   if (!authHeader) {
     return res.status(401).json({ error: "Authorization header is missing" });
   }

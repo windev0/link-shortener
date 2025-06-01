@@ -1,4 +1,4 @@
-import OffLineUrlShortener from "../assets/components/OffLineUrlShortenerComponent";
+import OffLineUrlShortener from "../components/OffLineUrlShortenerComponent";
 import "../assets/css/nav.css";
 import { RoutesEnum } from "../configs/router";
 import { isLoggedIn } from "../utils/functions";
