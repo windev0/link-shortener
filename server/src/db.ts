@@ -9,13 +9,12 @@ export const MONGODB_URI =
 // Fonction de connexion à MongoDB
 export const connectToMongoDB = async () => {
   try {
-    console.log("MongoDB URI:", MONGODB_URI);
     if (MONGODB_URI) {
       console.log("🔗 Tentative de connexion à MongoDB...");
       await mongoose.connect(MONGODB_URI, {
         serverSelectionTimeoutMS: 5000, // 5 s max pour trouver un nœud
       });
-      
+
       console.log("✅ Connecté à MongoDB");
     } else {
       console.error("❌ MONGODB_URI n'est pas défini dans le fichier .env");
