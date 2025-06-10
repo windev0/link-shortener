@@ -33,6 +33,7 @@ const URLShortenerForm = () => {
       }
     };
     if (refetch) {
+      console.log('object', links?.[0]);
       fetchLinks();
     }
   }, [shortUrl]);
@@ -125,7 +126,7 @@ const URLShortenerForm = () => {
                     <p>
                       <strong>Court :</strong>{" "}
                       <a
-                        href={link.shortUrl}
+                        href={link.originalUrl}
                         target="_blank"
                         rel="noreferrer"
                         className="text-green-600 underline"

@@ -78,7 +78,7 @@ app.get(
       });
 
       allLinks.forEach((link) => {
-        link.shortUrl = `${SERVER_URL}/links/${link.shortId}`;
+        link.shortUrl = `https://my-stl-/${link.shortId}`;
       });
       res.json(allLinks);
     } catch (error) {
