@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.username || !form.password) {
-      setError("Please enter both username and password.");
+      setError("Saisir le nom d'utilisateur et le mot de passe.");
       return;
     }
     setError(null);
@@ -34,7 +34,7 @@ const LoginPage: React.FC = () => {
       }
     ).then((response) => {
       if (!response.ok) {
-        setError("Login failed. Please check your credentials.");
+        setError("La connexion a échoué.Veuillez vérifier vos identifiants.");
         throw new Error("Login failed");
       }
       return response.json();
@@ -43,8 +43,9 @@ const LoginPage: React.FC = () => {
     if (data) {
       window.localStorage.setItem("user", JSON.stringify(data?.user));
       window.localStorage.setItem("isLoggedIn", "true");
-      axios.defaults.headers.common['Authorization'] = `Bearer ${data?.user?.token}`;
-
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${data?.user?.token}`;
 
       setIsLoading(false);
 
@@ -59,8 +60,8 @@ const LoginPage: React.FC = () => {
         style={{ fontSize: "1.2rem", fontWeight: "bold" }}
         className="bg-gray-100 p-3"
       >
-        <a href="/" style={{ fontSize: "25px" }}>
-          Retour
+        <a href="/" className="no-underline text-gray-800 font-bold">
+          <span className="text-blue-500">LINK - SHORTNER</span>
         </a>
       </div>
       <div className="flex items-center justify-center h-screen w-screen bg-gray-100">
@@ -82,7 +83,7 @@ const LoginPage: React.FC = () => {
               fontSize: 22,
             }}
           >
-            Please enter your credentials
+            Vos identifiants de connexion
           </h2>
 
           <form onSubmit={handleSubmit}>
@@ -95,7 +96,7 @@ const LoginPage: React.FC = () => {
                   fontSize: 16,
                 }}
               >
-                Username
+                Nom d'utilisateur
               </label>
               <input
                 type="text"
@@ -123,7 +124,7 @@ const LoginPage: React.FC = () => {
                   fontSize: 16,
                 }}
               >
-                Password
+                Mot de passe
               </label>
               <input
                 type="password"
@@ -159,13 +160,13 @@ const LoginPage: React.FC = () => {
                 cursor: "pointer",
               }}
             >
-              Sign In
+              Je me connecte
             </button>
           </form>
 
           <div style={{ marginTop: 16, textAlign: "center" }}>
-            Don't have an account?{" "}
-            <Link to={RoutesEnum.REGISTER}>Register</Link>
+            Vous n'avez pas de compte?{" "}
+            <Link to={RoutesEnum.REGISTER}>Créer maintenant</Link>
           </div>
         </div>
       </div>
