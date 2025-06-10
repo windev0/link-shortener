@@ -137,7 +137,9 @@ const URLShortenerForm = () => {
                       <button
                         onClick={() => {
                           navigator.clipboard.writeText(
-                            import.meta.env.VITE_API_BASE_URL + link.shortId
+                            `${import.meta.env.VITE_API_BASE_URL}/links/${
+                              link.shortId
+                            }`
                           );
                           alert("Lien copié !");
                         }}
