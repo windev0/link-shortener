@@ -33,7 +33,7 @@ const URLShortenerForm = () => {
       }
     };
     if (refetch) {
-      console.log('object', links?.[0]);
+      console.log("object", links?.[0]);
       fetchLinks();
     }
   }, [shortUrl]);
@@ -91,76 +91,77 @@ const URLShortenerForm = () => {
           </button>
         </form>
 
-        {shortUrl && (
-          <div className="mt-6">
-            <p className="font-medium">Voici ton lien raccourci :</p>
-            <a
-              href={shortUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="text-blue-500 underline"
-            >
-              {shortUrl}
-            </a>
-          </div>
-        )}
-
         {links.length > 0 && (
-          <div className="mt-10 text-left">
-            <h3 className="text-lg font-semibold mb-4">📜 Historique :</h3>
-            <ul className="space-y-4">
-              {links.map((link, index) => (
-                <li key={index} className="border-b pb-3">
-                  <p>
-                    <strong>Original :</strong>{" "}
-                    <a
-                      href={link.originalUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-blue-600 underline"
-                    >
-                      {link.originalUrl}
-                    </a>
-                  </p>
-                  <div className="flex items-center gap-2 mt-1">
+          <>
+            {shortUrl && (
+              <div className="mt-6">
+                <p className="font-medium">Voici ton lien raccourci :</p>
+                <a
+                  href={shortUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  {links?.[0]?.shortUrl}
+                </a>
+              </div>
+            )}
+            <div className="mt-10 text-left">
+              <h3 className="text-lg font-semibold mb-4">📜 Historique :</h3>
+              <ul className="space-y-4">
+                {links.map((link, index) => (
+                  <li key={index} className="border-b pb-3">
                     <p>
-                      <strong>Court :</strong>{" "}
+                      <strong>Original :</strong>{" "}
                       <a
                         href={link.originalUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-green-600 underline"
+                        className="text-blue-600 underline"
                       >
-                        {link.shortUrl}
+                        {link.originalUrl}
                       </a>
                     </p>
-                    <button
-                      onClick={() => {
-                        navigator.clipboard.writeText(link.shortUrl);
-                        alert("Lien copié !");
-                      }}
-                      className="ml-2 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded"
-                    >
-                      Copier
-                    </button>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Créé le :{" "}
-                    {new Date(link.createdAt).toLocaleDateString("fr-FR", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    })}{" "}
-                    à{" "}
-                    {new Date(link.createdAt).toLocaleTimeString("fr-FR", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p>
+                        <strong>Court :</strong>{" "}
+                        <a
+                          href={link.originalUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-green-600 underline"
+                        >
+                          {link.shortUrl}
+                        </a>
+                      </p>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(link.shortUrl);
+                          alert("Lien copié !");
+                        }}
+                        className="ml-2 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded"
+                      >
+                        Copier
+                      </button>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Créé le :{" "}
+                      {new Date(link.createdAt).toLocaleDateString("fr-FR", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      })}{" "}
+                      à{" "}
+                      {new Date(link.createdAt).toLocaleTimeString("fr-FR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         )}
 
         {error && (

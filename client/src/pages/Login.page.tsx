@@ -111,7 +111,12 @@ const LoginPage: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2 text-black bg-blue-600 hover:bg-blue-700 rounded transition-colors duration-200 disabled:opacity-60"
+              style={{
+                background: "#1976d2",
+                color: "white",
+                cursor: isLoading ? "not-allowed" : "pointer",
+              }}
+              className="w-full py-2 bg-blue-600 hover:bg-blue-700 rounded transition-colors duration-200 disabled:opacity-60"
             >
               Je me connecte
             </button>
