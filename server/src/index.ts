@@ -15,5 +15,5 @@ app.get("/", (_req, res) => {
 
 // Lance le serveur
 app.listen(PORT, () => {
-  console.log(`✅ Serveur démarré sur ${SERVER_URL}`);
+  console.log(`✅ Serveur démarré sur le port ${PORT}`);
 });
