@@ -57,7 +57,7 @@ const RegisterPage: React.FC = () => {
       <div
         style={{
           maxWidth: 400,
-          margin: "3rem auto",
+          margin: "3rem 2rem",
           padding: "2rem",
           borderRadius: 12,
           boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
