@@ -136,7 +136,9 @@ const URLShortenerForm = () => {
                       </p>
                       <button
                         onClick={() => {
-                          navigator.clipboard.writeText(link.shortUrl);
+                          navigator.clipboard.writeText(
+                            import.meta.env.VITE_API_BASE_URL + link.shortId
+                          );
                           alert("Lien copié !");
                         }}
                         className="ml-2 text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded"
