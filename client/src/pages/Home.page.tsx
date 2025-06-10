@@ -12,7 +12,7 @@ const HomePage = () => {
       <Navigation />
 
       <div className="flex justify-center items-center flex-col mt-10">
-        <p className="text-2xl font-bold font-stretch-condensed text-blue-500">Créer en quelques secondes un raccourci de vos liens</p>
+        <p className="p-3 text-2xl font-bold font-stretch-condensed text-blue-500">Créer en quelques secondes un raccourci de vos liens</p>
       </div>
       {!saveHistoric ? <OffLineUrlShortener /> : <URLShortenerForm />}
     </>

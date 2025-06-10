@@ -37,7 +37,7 @@ const Navigation = () => {
           <span className="text-white">LINK - SHORTNER</span>
         </a>
       </div>
-      <ul className="flex list-none m-0 p-0 gap-5 flex-wrap items-center">
+      <ul className="flex list-none m-0 p-0 gap-5 flex-wrap items-center md:flex-row md:justify-end mt-2 md:mt-0">
         <a
           href="https://github.com/windev0/link-shortener"
           target="_blank"
