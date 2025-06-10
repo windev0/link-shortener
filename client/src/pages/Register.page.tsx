@@ -73,7 +73,7 @@ const RegisterPage: React.FC = () => {
             fontSize: 24,
           }}
         >
-          Register
+          Création de compte
         </h2>
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 18 }}>
@@ -85,7 +85,7 @@ const RegisterPage: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Username
+              Nom d'utilisateur
               <input
                 type="text"
                 name="username"
@@ -143,7 +143,7 @@ const RegisterPage: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Password
+              Mot de passe
               <input
                 type="password"
                 name="password"
@@ -172,7 +172,7 @@ const RegisterPage: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Confirm Password
+              Confirmez le mot de passe
               <input
                 type="password"
                 name="confirmPassword"
@@ -224,7 +224,7 @@ const RegisterPage: React.FC = () => {
             onMouseOver={(e) => (e.currentTarget.style.background = "#1565c0")}
             onMouseOut={(e) => (e.currentTarget.style.background = "#1976d2")}
           >
-            Register
+            Créer mon compte
           </button>
           <p
             style={{
@@ -234,7 +234,7 @@ const RegisterPage: React.FC = () => {
               fontSize: 15,
             }}
           >
-            Already have an account?{" "}
+           Vous avez déjà un compte?{" "}
             <a
               href={RoutesEnum.LOGIN}
               style={{
@@ -243,7 +243,7 @@ const RegisterPage: React.FC = () => {
                 fontWeight: 500,
               }}
             >
-              Login here
+              Connectez-vous ici
             </a>
           </p>
         </form>

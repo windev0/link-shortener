@@ -64,109 +64,72 @@ const LoginPage: React.FC = () => {
           <span className="text-blue-500">LINK - SHORTNER</span>
         </a>
       </div>
-      <div className="flex items-center justify-center h-screen w-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen w-full bg-gray-100 px-2">
         <div
+          className="w-full max-w-md p-6 border border-gray-200 shadow-lg bg-white rounded-lg"
           style={{
-            minWidth: 400,
-            padding: 24,
-            border: "1px solid #ddd",
-            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-            backgroundColor: "#fff",
-            borderRadius: 8,
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
           }}
         >
           <h2
-            style={{
-              textAlign: "center",
-              marginBottom: 24,
-              color: "black",
-              fontSize: 22,
-            }}
+        className="text-center mb-6 text-black text-xl font-semibold"
           >
-            Vos identifiants de connexion
+        Vos identifiants de connexion
           </h2>
 
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: 16 }}>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: 4,
-                  color: "#000",
-                  fontSize: 16,
-                }}
-              >
-                Nom d'utilisateur
-              </label>
-              <input
-                type="text"
-                name="username"
-                value={form.username}
-                onChange={handleChange}
-                style={{
-                  width: "100%",
-                  padding: 8,
-                  marginTop: 4,
-                  borderRadius: 4,
-                  border: "1px solid #ccc",
-                }}
-                autoComplete="username"
-                required
-              />
-            </div>
+        <div className="mb-4">
+          <label
+            className="block mb-1 text-black text-base"
+          >
+            Nom d'utilisateur
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            className="w-full p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            autoComplete="username"
+            required
+          />
+        </div>
 
-            <div style={{ marginBottom: 16 }}>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: 4,
-                  color: "#000",
-                  fontSize: 16,
-                }}
-              >
-                Mot de passe
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                style={{
-                  width: "100%",
-                  padding: 8,
-                  marginTop: 4,
-                  borderRadius: 4,
-                  border: "1px solid #ccc",
-                }}
-                autoComplete="current-password"
-                required
-              />
-            </div>
+        <div className="mb-4">
+          <label
+            className="block mb-1 text-black text-base"
+          >
+            Mot de passe
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            className="w-full p-2 mt-1 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            autoComplete="current-password"
+            required
+          />
+        </div>
 
-            {error && (
-              <div style={{ color: "red", marginBottom: 12 }}>{error}</div>
-            )}
+        {error && (
+          <div className="text-red-600 mb-3">{error}</div>
+        )}
 
-            <button
-              type="submit"
-              disabled={isLoading}
-              style={{
-                width: "100%",
-                padding: 10,
-                color: "#fff",
-                backgroundColor: "#007bff",
-                border: "none",
-                borderRadius: 4,
-                cursor: "pointer",
-              }}
-            >
-              Je me connecte
-            </button>
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="w-full py-2 text-white bg-blue-600 hover:bg-blue-700 rounded transition-colors duration-200 disabled:opacity-60"
+        >
+          Je me connecte
+        </button>
           </form>
 
-          <div style={{ marginTop: 16, textAlign: "center" }}>
-            Vous n'avez pas de compte?{" "}
-            <Link to={RoutesEnum.REGISTER}>Créer maintenant</Link>
+          <div className="mt-4 text-center text-sm">
+        Vous n'avez pas de compte?{" "}
+        <Link to={RoutesEnum.REGISTER} className="text-blue-600 hover:underline">
+          Créer maintenant
+        </Link>
           </div>
         </div>
       </div>
